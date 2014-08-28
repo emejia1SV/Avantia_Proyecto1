@@ -14,8 +14,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import sv.avantia.depurador.agregadores.jdbc.BdEjecucion;
-import sv.avantia.depurador.agregadores.ws.cliente.ComponentBuilder;
-import sv.avantia.depurador.agregadores.ws.cliente.prueba1.ServiceInfo;
 
 public class TestMain {
 
@@ -27,7 +25,7 @@ public class TestMain {
 	}
 	
 	public static void test4(){
-		ComponentBuilder builder = new ComponentBuilder();
+		/*ComponentBuilder builder = new ComponentBuilder();
 		ServiceInfo serviceinfo = new ServiceInfo();
 		
 		try {
@@ -36,7 +34,7 @@ public class TestMain {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	public static void test3(){
@@ -226,6 +224,7 @@ public class TestMain {
       
         Collections.sort(entries, new Comparator<Map.Entry<K,V>>() {
 
+			@SuppressWarnings("unchecked")
 			@Override
             public int compare(Entry<K, V> o1, Entry<K, V> o2) {
                 return o1.getValue().compareTo(o2.getValue());

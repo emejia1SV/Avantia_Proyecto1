@@ -40,12 +40,11 @@ import org.exolab.castor.xml.schema.XMLType;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import sv.avantia.depurador.agregadores.ws.cliente.prueba2.XMLSupport;
-
 import com.cladonia.xml.webservice.soap.SOAPClient;
 import com.cladonia.xml.webservice.wsdl.OperationInfo;
 import com.cladonia.xml.webservice.wsdl.ServiceInfo;
 import com.cladonia.xml.webservice.wsdl.WSDLException;
+import com.cladonia.xml.webservice.wsdl.XMLSupport;
 import com.ibm.wsdl.extensions.schema.SchemaImpl;
 
 public class Cliente {
