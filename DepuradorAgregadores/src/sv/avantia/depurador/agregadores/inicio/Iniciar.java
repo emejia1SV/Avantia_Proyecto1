@@ -15,6 +15,8 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Map.Entry;
 
+import org.apache.log4j.Logger;
+
 import sv.avantia.depurador.agregadores.generarArchivos.ConexionSFTP;
 import sv.avantia.depurador.agregadores.generarArchivos.CrearArchivoTxt;
 import sv.avantia.depurador.agregadores.hilo.ConsultaAgregadorPorHilo;
@@ -23,6 +25,7 @@ import sv.avantia.depurador.agregadores.objetos.Agregadores;
 import sv.avantia.depurador.agregadores.objetos.Metodos;
 import sv.avantia.depurador.agregadores.objetos.Parametros;
 import sv.avantia.depurador.agregadores.objetos.Servicios;
+import sv.avantia.depurador.agregadores.utileria.Log4jInit;
 import sv.avantia.depurador.agregadores.ws.cliente.Cliente;
 
 import com.cladonia.xml.webservice.wsdl.OperationInfo;
@@ -38,6 +41,13 @@ import com.cladonia.xml.webservice.wsdl.WSDLException;
  * */
 public class Iniciar {
 
+	/* Get actual class name to be printed on */
+	public static Logger logger = Logger.getLogger("avantiaLogger");
+	
+	static{
+		Log4jInit.init();
+	}
+	
 	/**
 	 * Carga de archivo de propiedades
 	 * 
