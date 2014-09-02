@@ -21,11 +21,11 @@ public class TestMain {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		test3();
+		//test3();
 	}
 	
-	public static void test4(){
-		/*ComponentBuilder builder = new ComponentBuilder();
+	/*public static void test4(){
+		ComponentBuilder builder = new ComponentBuilder();
 		ServiceInfo serviceinfo = new ServiceInfo();
 		
 		try {
@@ -34,7 +34,7 @@ public class TestMain {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 	}
 	
 	public static void test3(){
@@ -213,11 +213,11 @@ public class TestMain {
 		
 	}
   
-    /*
+    
      * Java method to sort Map in Java by value e.g. HashMap or Hashtable
      * throw NullPointerException if Map contains null values
      * It also sort values even if they are duplicates
-     */
+     
     @SuppressWarnings("rawtypes")
 	private static <K extends Comparable,V extends Comparable> Map<K,V> sortByValues(Map<K,V> map){
         List<Map.Entry<K,V>> entries = new LinkedList<Map.Entry<K,V>>(map.entrySet());
@@ -301,6 +301,6 @@ public class TestMain {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 }

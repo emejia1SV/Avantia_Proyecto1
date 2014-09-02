@@ -1,33 +1,49 @@
 package sv.avantia.depurador.agregadores.jdbc;
 
+import org.apache.log4j.Logger;
+import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
 
-/** * @author hennebrueder This class garanties that only one single SessionFactory 
- * *         is instanciated and that the configuration is done thread safe as 
- * *         singleton. Actually it only wraps the Hibernate SessionFactory. 
- * *         You are free to use any kind of JTA or Thread transactionFactories. */
-public class SessionFactoryUtil {  
-	/** The single instance of hibernate SessionFactory *//*  
-	private static org.hibernate.SessionFactory sessionFactory;	
-	*//**	 * disable contructor to guaranty a single instance	 *//*	
-	private SessionFactoryUtil() {	}	
-	static{
-		// Annotation and XML    
-		sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
-		// XML only//    
-		sessionFactory = new Configuration().configure().buildSessionFactory();  }	
-	public static SessionFactory getInstance() {		
-		return sessionFactory;	}  
-	*//**   * Opens a session and will not bind it to a session context   * @return the session   *//*	
-	public Session openSession() {		return sessionFactory.openSession();	}	
-	*//**   Returns a session from the session context. If there is no session in the context it opens a session,   * stores it in the context and returns it.	 
-	 * This factory is intended to be used with a hibernate.cfg.xml	 
-	 *  including the following property &lt;property	 
-	 *  name="current_session_context_class"&gt;thread&lt;/property&gt; This would return	 * the current open session or if this does not exist, will create a new	 * session	 * 	 * @return the session	 *//*	
-	public Session getCurrentSession() {		
-		return sessionFactory.getCurrentSession();	}  
-	*//**   * closes the session factory   *//*	
-	public static void close(){		
-		if (sessionFactory != null)			sessionFactory.close();		sessionFactory = null;	}}
-	}*/
+public class SessionFactoryUtil {
+	
+	/* Get actual class name to be printed on */
+	public static Logger logger = Logger.getLogger("avantiaLogger");
+
+	// Annotation based configuration
+	private static SessionFactory sessionAnnotationFactory;
+	
+	private static SessionFactory buildSessionAnnotationFactory() {
+		try {
+			// Create the SessionFactory from hibernate.cfg.xml
+			Configuration configuration = new Configuration();
+			configuration.configure("hibernate-annotation.cfg.xml");
+			logger.info("Hibernate Annotation Configuration loaded");
+
+			ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+			logger.info("Hibernate Annotation serviceRegistry created");
+
+			SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+
+			return sessionFactory;
+		} catch (Throwable ex) {
+			// Make sure you log the exception, as it might be swallowed
+			logger.error("Initial SessionFactory creation failed." + ex);
+			throw new ExceptionInInitializerError(ex);
+		}
+	}
+	
+	public static SessionFactory getSessionAnnotationFactory() {
+		if (sessionAnnotationFactory == null || sessionAnnotationFactory.isClosed())
+			sessionAnnotationFactory = buildSessionAnnotationFactory();
+		return sessionAnnotationFactory;
+	}
+	
+	public static void closeSession(){
+		if(sessionAnnotationFactory.getCurrentSession().isOpen())
+			sessionAnnotationFactory.getCurrentSession().close();
+		
+		sessionAnnotationFactory = null;
+	}
 }
- 
